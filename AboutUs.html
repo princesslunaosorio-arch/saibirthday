@@ -1,0 +1,53 @@
+﻿@page
+@model AboutUsModel
+@{
+    ViewData["Title"] = "Happy Birthday Cake!";
+}
+<style>
+    body {
+        /* Pinalitan ang solid background ng background image pattern */
+        background-image: url('/images/bg4.jpg') !important;
+        background-repeat: repeat !important;
+        background-size: 200px 200px !important; /* Pwede mong baguhin ang laki ng squares dito */
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 20px; position: relative;">
+
+    <!-- Top Left Image -->
+    <img src="~/images/cute3.png" alt="Top Left" style="position: absolute; top: 20px; left: 180px; width: 130px; height: auto;">
+
+    <!-- Top Right Image -->
+    <img src="~/images/cute2.png" alt="Top Right" style="position: absolute; top: 20px; right: 150px; width: 130px; height: auto;">
+
+    <!-- Top Right Image Cute1 -->
+    <img src="~/images/cute1.png" alt="Top Right" style="position: absolute; top: 300px; right: -10px; width: 130px; height: auto;">
+
+    <!-- Top Right Image Octy -->
+    <img src="~/images/octy.png" alt="Top Right" style="position: absolute; top: 300px; right: 1150px; width: 130px; height: auto;">
+
+    <!-- Cake (Nananatili sa -80px) -->
+    <div style="margin-top: -80px;">
+        <img src="~/images/bd2.gif" alt="Birthday Cake" style="max-width: 100%; width: 280px; height: auto;">
+    </div>
+
+    <!-- Text -->
+    <p style="margin-top: 0px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.4rem; color: #333333; font-weight: 600;">
+        A cake for my beautiful sweet boy! <br />
+        Don't forget to make wish, love love. <br />
+        Happy Birthday!🎂
+    </p>
+
+    <!-- 2 Images sa Ibaba (Kaliwa at Kanan) -->
+    <div style="display: flex; justify-content: space-between; width: 100%; max-width: 800px; position: absolute; bottom: 20px; padding: 0 10px;">
+        <img src="~/images/flow.png" alt="Bottom Left" style="width: 130px; height: auto;">
+        <img src="~/images/flow.png" alt="Bottom Right" style="width: 130px; height: auto;">
+    </div>
+
+    <!-- Button na naka-lock sa pwesto -->
+    <div style="position: absolute; bottom: 10px;">
+        <a href="/Index" style="background-color: #EF9A9A; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.2s;">
+            Back to Home
+        </a>
+    </div>
+</div>

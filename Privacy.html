@@ -1,0 +1,260 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Gated Access";
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Modak&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        background-color: #E0F7FA;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .page-wrapper {
+        position: relative;
+        min-height: 88vh;
+        padding-top: 20px;
+        width: 100%;
+        overflow: visible;
+    }
+
+    .lock-title-img {
+        height: 95px !important;
+        width: auto !important;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+    }
+
+    .lock-subtitle {
+        color: #555555;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    .cloud-gif {
+        position: absolute;
+        width: 250px;
+        height: auto;
+        object-fit: contain;
+        z-index: 1;
+    }
+
+    .cloud-left {
+        top: -65px !important;
+        left: -10px !important;
+    }
+
+    .cloud-right {
+        top: -65px !important;
+        right: -50px !important;
+    }
+
+    .sticker-img {
+        position: absolute;
+        width: 145px;
+        height: auto;
+        object-fit: contain;
+        z-index: 2;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .sticker-img:hover {
+            transform: scale(1.08) !important;
+        }
+
+    .sticker-top-left {
+        top: 220px;
+        left: -5%;
+        transform: rotate(-4deg);
+    }
+
+    .sticker-bottom-left {
+        bottom: 50px;
+        left: 10%;
+        transform: rotate(6deg);
+    }
+
+    .sticker-center-bottom {
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-40%);
+    }
+
+    .sticker-top-right {
+        top: 230px;
+        right: -0%;
+        transform: rotate(4deg);
+    }
+
+    .sticker-bottom-right {
+        bottom: 50px;
+        right: 10%;
+        transform: rotate(-3deg);
+    }
+
+    .quiz-card {
+        background-color: #ffffff;
+        border-radius: 32px;
+        padding: 16px;
+        max-width: 520px;
+        margin: 50px auto 120px auto;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        position: relative;
+        z-index: 10;
+    }
+
+    .quiz-inner {
+        background-color: #E2F5F8;
+        border-radius: 24px;
+        padding: 35px 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .input-box {
+        width: 80%;
+        padding: 8px 16px;
+        border-radius: 30px;
+        border: 1px solid #444444;
+        outline: none;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+        background-color: #ffffff;
+    }
+
+    .check-btn {
+        background-color: #A2C8F5;
+        border: 1px solid #000000;
+        border-radius: 12px;
+        padding: 8px 24px;
+        font-weight: 700;
+        color: #000000;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.2s;
+        margin-top: 10px;
+    }
+
+        .check-btn:hover {
+            background-color: #8EBDF3;
+            transform: scale(1.03);
+        }
+
+    .error-message {
+        color: #d9534f;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: none;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="text-center page-wrapper">
+
+    <img src="~/images/pnj.gif" class="cloud-gif cloud-left" alt="Left Cloud GIF" />
+    <img src="~/images/pnj.gif" class="cloud-gif cloud-right" alt="Right Cloud GIF" />
+
+    <img src="~/images/last.png" class="sticker-img sticker-top-left" alt="Pochacco Top Left" />
+    <img src="~/images/ping2.png" class="sticker-img sticker-bottom-left" alt="Pochacco Bottom Left" />
+    <img src="~/images/ping1.png" class="sticker-img sticker-center-bottom" alt="Pochacco Center Bottom" />
+    <img src="~/images/ping3.png" class="sticker-img sticker-top-right" alt="Pochacco Top Right" />
+    <img src="~/images/ping4.png" class="sticker-img sticker-bottom-right" alt="Pochacco Bottom Right" />
+
+    <img src="~/images/bd.png" class="lock-title-img" alt="Hi, Birthday Boy!" />
+    <p class="lock-subtitle">To have access make sure to answer these 3 questions first, love love!</p>
+
+    <div class="quiz-card">
+        <div class="quiz-inner gate-card">
+
+            <!-- Question 1 -->
+            <div id="block-q1">
+                <h4 style="font-weight: 700; color: #111111; margin: 0; font-size: 1.6rem;">First Question, lovey.</h4>
+                <p id="question-1-text" style="color: #555555; margin-top: 6px; margin-bottom: 0; font-size: 0.95rem;">Do you believe in aliens?</p>
+                <input type="text" id="answer-q1" class="input-box" placeholder="Your answer..." autocomplete="off" onkeydown="handleKey(event, 1)">
+                <p id="error-q1" class="error-message">No no! That's wrong. Try again, love!</p>
+                <button type="button" class="check-btn" onclick="checkAnswer(1)">Next Question</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="block-q2" style="display: none;">
+                <h4 style="font-weight: 700; color: #111111; margin: 0; font-size: 1.6rem;">One more to go, love love.</h4>
+                <p id="question-2-text" style="color: #555555; margin-top: 6px; margin-bottom: 0; font-size: 0.95rem;">Where was our first date?</p>
+                <input type="text" id="answer-q2" class="input-box" placeholder="Your answer..." autocomplete="off" onkeydown="handleKey(event, 2)">
+                <p id="error-q2" class="error-message">That's not right, baby!</p>
+                <button type="button" class="check-btn" onclick="checkAnswer(2)">Next Question</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="block-q3" style="display: none;">
+                <h4 style="font-weight: 700; color: #111111; margin: 0; font-size: 1.6rem;">Last One, baby.</h4>
+                <p id="question-3-text" style="color: #555555; margin-top: 6px; margin-bottom: 0; font-size: 0.95rem;">When did we started talking?</p>
+                <input type="text" id="answer-q3" class="input-box" placeholder="Your answer..." autocomplete="off" onkeydown="handleKey(event, 3)">
+                <p id="error-q3" class="error-message">Nope, baby. Guess again!</p>
+                <button type="button" class="check-btn" onclick="checkAnswer(3)">Access Website!</button>
+            </div>
+
+            <!-- Success Block -->
+            <div id="block-success" style="display: none;">
+                <h2 style="color: #333333; font-weight: 700; margin-top: 0;">Unlocked!</h2>
+                <p style="color: #555555;">Welcome, love love! You can now access the full page.</p>
+                <button type="button" class="check-btn" onclick="redirectToHome()">Click to enter</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = {
+        1: { answer: "yes" },
+        2: { answer: "malolos" },
+        3: { answer: "02/22/25" }
+    };
+
+    function handleKey(event, qNum) {
+        if (event.key === "Enter") {
+            checkAnswer(qNum);
+        }
+    }
+
+    function checkAnswer(qNum) {
+        const inputElem = document.getElementById(`answer-q${qNum}`);
+        const errorElem = document.getElementById(`error-q${qNum}`);
+        const userAnswer = inputElem.value.trim().toLowerCase();
+
+        if (userAnswer !== quizData[qNum].answer) {
+            errorElem.style.display = "block"; // Shows your custom red error message
+            return;
+        }
+
+        // Hide error message if correct
+        errorElem.style.display = "none";
+
+        if (qNum === 1) {
+            document.getElementById("block-q1").style.display = "none";
+            document.getElementById("block-q2").style.display = "block";
+            document.getElementById("answer-q2").focus();
+        } else if (qNum === 2) {
+            document.getElementById("block-q2").style.display = "none";
+            document.getElementById("block-q3").style.display = "block";
+            document.getElementById("answer-q3").focus();
+        } else if (qNum === 3) {
+            document.getElementById("block-q3").style.display = "none";
+            document.getElementById("block-success").style.display = "block";
+        }
+    }
+
+    function redirectToHome() {
+        sessionStorage.setItem("birthdayQuizSolved", "true");
+        window.location.href = "/Index";
+    }
+</script>

@@ -1,0 +1,211 @@
+﻿@page
+@model MemoriesModel
+@{
+    ViewData["Title"] = "Memories & Love Letter";
+}<!-- Security Guard: Redirects to Privacy quiz if not logged in --><script>if (sessionStorage.getItem('birthdayQuizSolved') !== 'true') {
+window.location.href = '/Privacy';
+}</script><style>
+    body {
+        background-image: url('/images/3.jpg') !important;
+        background-repeat: no-repeat !important;
+        background-size: 100vw 100vh !important;
+        background-position: center !important;
+        background-attachment: fixed !important;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        margin: 0;
+        height: 100vh;
+    }
+
+    .center-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        padding-top: 40px;
+    }
+
+    .letter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .envelope-img {
+        width: 100%;
+        max-width: 470px;
+        height: auto;
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+
+        .envelope-img:hover {
+            transform: scale(1.02);
+        }
+
+    #revealed-letter {
+        display: none;
+        background-image: url('/images/bk.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 45px 70px; 
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        max-width: 1050px; /* Medyo pinalawak pa natin para mas magkasya ang malaking text nang pahiga */
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        border: 2px solid #EF9A9A;
+        animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Plain image na walang background, walang border, walang padding */
+    .outside-photo {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+        .outside-photo:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+    .photo-top-left {
+        top: 38%;
+        left: -8%;
+        transform: rotate(0deg);
+    }
+
+    .photo-top-right {
+        top: -1%;
+        right: -5%;
+        transform: rotate(8deg);
+    }
+
+    .photo-bottom-left {
+        bottom: 25%;
+        left: 12%;
+        transform: rotate(6deg);
+    }
+
+    .photo-bottom-right {
+        bottom: 55%;
+        right: 80%;
+        transform: rotate(-6deg);
+    }
+
+    /* Pwesto para sa ikalimang larawan */
+    .photo-extra {
+        top: 60%;
+        right: 1%;
+        transform: rotate(0deg);
+        width: 250px;
+    }
+
+    /* Pwesto para sa ika-anim na larawan */
+    .photo-extra2 {
+        top: 25%;
+        left: 72%;
+        transform: rotate(-4deg);
+        width: 200px;
+    }
+
+    .spotify-red-wrapper {
+        position: absolute;
+        top: 5%;
+        z-index: 5;
+    }
+
+        .spotify-red-wrapper iframe {
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            filter: hue-rotate(290deg) saturate(1.8) brightness(0.9);
+        }
+
+    .btn-custom-red {
+        background-color: #D32F2F !important;
+        border-color: #B71C1C !important;
+        color: #ffffff !important;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-custom-red:hover {
+        background-color: #B71C1C !important;
+        border-color: #7F0000 !important;
+        color: #ffffff !important;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }</style>
+    <div class="center-wrapper">
+        <!-- 6 na Larawan sa Labas -->
+        <img src="~/images/tel.png" alt="Memory 1" class="outside-photo photo-top-left" />
+        <img src="~/images/f.png" alt="Memory 2" class="outside-photo photo-top-right" />
+        <img src="~/images/cam.png" alt="Memory 3" class="outside-photo photo-bottom-left" />
+        <img src="~/images/us.png" alt="Memory 4" class="outside-photo photo-bottom-right" />
+        <img src="~/images/CUTE.png" alt="Memory 5" class="outside-photo photo-extra" />
+        <img src="~/images/cak.png" alt="Memory 6" class="outside-photo photo-extra2" />
+
+        <!-- Kulay Pulang Spotify Player -->
+        <div class="spotify-red-wrapper">
+            <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/track/6KknhggJ4EgpzlEDy19yWv?utm_source=generator&si=0b684396c0a14704" width="280" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <!-- Saradong Envelope -->
+        <div id="envelope-box" class="letter-container" onclick="openEnvelope()">
+            <img src="~/images/env2.jpg" alt="Closed Envelope" class="envelope-img" />
+            <div id="default-home-btn" style="margin-top: 20px;">
+                <a href="/Index" class="btn btn-custom-red" style="border-radius: 8px; padding: 6px 18px;">Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Bukas na Envelope / Letter Content -->
+        <div id="revealed-letter">
+            <span style="font-size: 2rem;"></span>
+            <h3 style="font-family: 'Playfair Display', serif; color: #333; margin-top: 2px; margin-bottom: 6px; font-size: 1.6rem;">To my sweet boy,</h3>
+            <p style="color: #444; font-size: 1.22em; line-height: 1.55; margin-top: 0; margin-bottom: 0; font-weight: 500;">
+                Happy Birthday, love love! I hope you enjoy your day po.
+                Welcome to adulthood! I know it sounds terrifying but it's going to be okay. Ill be with you through all of your journeys in life.
+                You are doing just fine, love love. I am so proud of you for always trying your best. I know you often have doubts on yourself but i hope you don't let that get into you.
+                You are a wonderful person and i am so lucky to have you in my life. I know we've been through a lot this year. I'm happy to experience all of that with you, even the bitter moments.
+                I wish you get everything you want in life. I wish you a healthy and happy life. It's a pleasure to be here seeing you grow and be who you are now. I love you so much po, love.
+                I hope you keep in mind that you will always have a special place in my heart no matter what. You are the best thing that happened in my life. Happy birthday my sweet baby boy, i love love you!! ❤️
+            </p>
+            <div style="margin-top: 15px;">
+                <button onclick="closeEnvelope()" class="btn btn-custom-red" style="border-radius: 8px; padding: 6px 18px;">Close Letter</button>
+            </div>
+        </div>
+    </div>
+    <script>
+function openEnvelope() {
+    document.getElementById('envelope-box').style.display = 'none';
+    const outsidePhotos = document.querySelectorAll('.outside-photo');
+    outsidePhotos.forEach(img => img.style.display = 'none');
+    document.getElementById('revealed-letter').style.display = 'block';
+}
+
+function closeEnvelope() {
+    document.getElementById('revealed-letter').style.display = 'none';
+    document.getElementById('envelope-box').style.display = 'flex';
+    const outsidePhotos = document.querySelectorAll('.outside-photo');
+    outsidePhotos.forEach(img => img.style.display = 'block');
+}</script>
